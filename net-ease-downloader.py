@@ -40,9 +40,6 @@ with open(name,'wb') as f:
 #下载歌曲封面
 print("下载歌曲封面")
 pic=requests.get(picurl,headers=headers).content
-pic_name="cover.jpg"
-with open(pic_name,'wb') as f:
-    f.write(pic)
 
 #下载歌词
 print("下载歌词")
@@ -58,8 +55,6 @@ audiofile.tag.artist=song_ar
 audiofile.tag.title=song_name
 audiofile.tag.album=song_al
 audiofile.tag.lyrics.set=lyric
-audiofile.tag.images.set(ImageFrame.FRONT_COVER, open(pic_name,'rb').read(), 'image/jpeg')
+audiofile.tag.images.set(ImageFrame.FRONT_COVER,pic, 'image/jpeg')
 audiofile.tag.save()
 print("完成")
-#清理临时文件
-os.remove(pic_name)
